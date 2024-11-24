@@ -1,9 +1,7 @@
 package io.connectevent.connectevent.auth.password;
 
-import com.lifelibrarians.lifebookshelf.auth.password.annotation.OneWayEncryption;
-import com.lifelibrarians.lifebookshelf.auth.password.annotation.TargetMapping;
-import com.lifelibrarians.lifebookshelf.exception.status.AuthExceptionStatus;
-import com.lifelibrarians.lifebookshelf.utils.exception.UtilsExceptionStatus;
+import io.connectevent.connectevent.auth.password.annotation.OneWayEncryption;
+import io.connectevent.connectevent.auth.password.annotation.TargetMapping;
 import java.lang.reflect.Field;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -47,14 +45,14 @@ public class OneWayEncryptionAspect {
 							setFieldToTarget(arg, targetField,
 									passwordEncoder.encode(toEncode));
 						} catch (Exception e) {
-							throw AuthExceptionStatus.PASSWORD_FORMAT_ERROR.toControllerException();
+							throw new RuntimeException("암호화에 실패했습니다.");
 						}
 					}
 				}
 			}
 		}
 		if (!isMatchedAtLeastOnce) {
-			throw UtilsExceptionStatus.NON_MAPPED_TARGET.toControllerException();
+			throw new RuntimeException("암호화 대상이 존재하지 않습니다.");
 		}
 		return joinPoint.proceed(methodArgs);
 	}
@@ -75,7 +73,7 @@ public class OneWayEncryptionAspect {
 			Object targetField = declaredField.get(target);
 			return toConvert.cast(targetField);
 		} catch (IllegalAccessException | NoSuchFieldException | ClassCastException e) {
-			throw UtilsExceptionStatus.NON_MAPPED_FIELD.toControllerException();
+			throw new RuntimeException("필드를 가져오는데 실패했습니다.");
 		}
 	}
 
@@ -92,7 +90,7 @@ public class OneWayEncryptionAspect {
 			declaredField.setAccessible(true);
 			declaredField.set(target, value);
 		} catch (IllegalAccessException | NoSuchFieldException e) {
-			throw UtilsExceptionStatus.NON_MAPPED_FIELD.toControllerException();
+			throw new RuntimeException("필드를 설정하는데 실패했습니다.");
 		}
 	}
 }
