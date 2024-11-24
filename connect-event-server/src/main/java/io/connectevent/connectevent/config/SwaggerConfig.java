@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @OpenAPIDefinition(
 		servers = @io.swagger.v3.oas.annotations.servers.Server(url = "${swagger.base-url}"),
-		info = @Info(title = "Life Bookshelf API", version = "v1"),
+		info = @Info(title = "Connect Event API", version = "v1"),
 		security = @SecurityRequirement(name = "bearerAuth")
 )
 @SecurityScheme(

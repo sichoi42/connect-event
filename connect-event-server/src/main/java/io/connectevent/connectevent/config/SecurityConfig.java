@@ -1,5 +1,7 @@
 package io.connectevent.connectevent.config;
 
+import io.connectevent.connectevent.auth.jwt.JwtAuthenticationConverter;
+import io.connectevent.connectevent.auth.jwt.MemberSessionAuthenticationFilter;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
