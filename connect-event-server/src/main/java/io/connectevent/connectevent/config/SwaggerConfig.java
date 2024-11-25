@@ -103,6 +103,9 @@ public class SwaggerConfig {
 		exceptionStatusList.addAll(
 				Arrays.asList(apiErrorCodeExample.authExceptionStatuses()));
 		exceptionStatusList.addAll(
+				Arrays.asList(apiErrorCodeExample.locationExceptionStatuses())
+		);
+		exceptionStatusList.addAll(
 				Arrays.asList(apiErrorCodeExample.eventExceptionStatuses()));
 		exceptionStatusList.addAll(
 				Arrays.asList(apiErrorCodeExample.tagExceptionStatuses()));

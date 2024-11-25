@@ -3,6 +3,7 @@ package io.connectevent.connectevent.exception.annotation;
 import io.connectevent.connectevent.exception.status.AuthExceptionStatus;
 import io.connectevent.connectevent.exception.status.EventExceptionStatus;
 import io.connectevent.connectevent.exception.status.FeedbackExceptionStatus;
+import io.connectevent.connectevent.exception.status.LocationExceptionStatus;
 import io.connectevent.connectevent.exception.status.ParticipantExceptionStatus;
 import io.connectevent.connectevent.exception.status.TagExceptionStatus;
 import java.lang.annotation.ElementType;
@@ -42,4 +43,6 @@ public @interface ApiErrorCodeExample {
 	ParticipantExceptionStatus[] participantExceptionStatuses() default {};
 
 	FeedbackExceptionStatus[] feedbackExceptionStatuses() default {};
+
+	LocationExceptionStatus[] locationExceptionStatuses() default {};
 }

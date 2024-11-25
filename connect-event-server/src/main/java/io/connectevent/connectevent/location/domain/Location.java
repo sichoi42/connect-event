@@ -35,7 +35,14 @@ public class Location {
     private String address;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event_id", nullable = false, unique = true)
+    @JoinColumn(name = "event_id", unique = true)
     private Event event;
 
+	public static Location of(String name, int capacity, String address) {
+    Location location = new Location();
+    location.name = name;
+    location.capacity = capacity;
+    location.address = address;
+    return location;
+	}
 }

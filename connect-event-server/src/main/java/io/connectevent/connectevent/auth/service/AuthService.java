@@ -4,6 +4,7 @@ import io.connectevent.connectevent.auth.dto.EmailLoginRequestDto;
 import io.connectevent.connectevent.auth.dto.EmailRegisterRequestDto;
 import io.connectevent.connectevent.auth.dto.JwtLoginTokenDto;
 import io.connectevent.connectevent.auth.jwt.JwtTokenProvider;
+import io.connectevent.connectevent.exception.status.AuthExceptionStatus;
 import io.connectevent.connectevent.log.Logging;
 import io.connectevent.connectevent.member.domain.Member;
 import io.connectevent.connectevent.member.repository.MemberRepository;
@@ -26,7 +27,7 @@ public class AuthService {
 	public void registerEmail(EmailRegisterRequestDto requestDto) {
 //		1. 이메일 중복 확인
 		if (memberRepository.findByEmail(requestDto.getEmail()).isPresent()) {
-			throw new IllegalArgumentException("Member already exists");
+			throw AuthExceptionStatus.MEMBER_ALREADY_EXISTS.toServiceException();
 		}
 
 //		2. 회원가입
@@ -44,12 +45,18 @@ public class AuthService {
 //		1. 이메일로 회원 조회
 		Optional<Member> member = memberRepository.findByEmail(requestDto.getEmail());
 
-//		2. 이메일 혹은 비밀번호가 틀린 경우
-		if (member.isEmpty() || !member.get().getPassword().equals(requestDto.getPassword())) {
-			throw new IllegalArgumentException("Member not found or password is incorrect");
+//		2. 존재하지 않는 회원인 경우
+		if (member.isEmpty()) {
+			throw AuthExceptionStatus.MEMBER_NOT_FOUND.toServiceException();
 		}
 
-//		3. JWT 토큰 생성
+//		3. 이메일 혹은 비밀번호가 틀린 경우
+		if (!member.get().getEmail().equals(requestDto.getEmail())
+				|| !member.get().getPassword().equals(requestDto.getPassword())) {
+			throw AuthExceptionStatus.EMAIL_OR_PASSWORD_INCORRECT.toServiceException();
+		}
+
+//		4. JWT 토큰 생성
 		Jwt jwt = jwtTokenProvider.createMemberAccessToken(member.get().getId());
 		return JwtLoginTokenDto.builder()
 				.accessToken(jwt.getTokenValue())
