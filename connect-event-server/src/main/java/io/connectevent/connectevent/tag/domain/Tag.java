@@ -30,4 +30,9 @@ public class Tag {
     @OneToMany(mappedBy = "tag")
     private Set<EventTag> eventTags;
 
+	public static Tag of(String tagName) {
+		Tag tag = new Tag();
+		tag.name = tagName;
+		return tag;
+	}
 }

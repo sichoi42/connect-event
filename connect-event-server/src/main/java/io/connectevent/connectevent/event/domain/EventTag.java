@@ -33,4 +33,10 @@ public class EventTag {
     @JoinColumn(name = "tag_id")
     private Tag tag;
 
+    public static EventTag of(Event event, Tag tag) {
+        EventTag eventTag = new EventTag();
+        eventTag.event = event;
+        eventTag.tag = tag;
+        return eventTag;
+    }
 }

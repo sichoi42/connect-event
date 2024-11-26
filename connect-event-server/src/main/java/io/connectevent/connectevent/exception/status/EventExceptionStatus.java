@@ -11,8 +11,14 @@ import lombok.ToString;
 public enum EventExceptionStatus implements ExceptionStatus {
 
 	EVENT_NOT_FOUND(404, "EVENT001", "존재하지 않는 이벤트입니다."),
-	EVENT_ALREADY_EXISTS(409, "EVENT002", "이미 존재하는 이벤트입니다.")
+	EVENT_ALREADY_EXISTS(409, "EVENT002", "이미 존재하는 이벤트입니다."),
+	TAG_ALREADY_EXISTS(409, "EVENT003", "이미 존재하는 태그입니다."),
+	TAG_NOT_FOUND(404, "EVENT004", "존재하지 않는 태그입니다."),
+	EVENT_TAG_NOT_FOUND(404, "EVENT005", "존재하지 않는 이벤트 태그입니다."),
+	EVENT_NOT_OWNER(403, "EVENT006", "이벤트 주최자만 가능합니다."),
+	PARTICIPANT_EXISTS(409, "EVENT007", "이미 참가한 이벤트입니다."),
 	;
+
 
 	private final int statusCode;
 	private final String code;

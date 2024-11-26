@@ -2,6 +2,7 @@ package io.connectevent.connectevent.participant.domain;
 
 import io.connectevent.connectevent.event.domain.Event;
 import io.connectevent.connectevent.member.domain.Member;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -44,4 +45,12 @@ public class Participant {
     @JoinColumn(name = "event_id", nullable = false)
     private Event event;
 
+	public static Participant of(Member member, Event event, LocalDateTime registeredAt, ParticipantRole role) {
+        Participant participant = new Participant();
+        participant.member = member;
+        participant.event = event;
+        participant.role = role;
+        participant.registeredAt = registeredAt;
+        return participant;
+	}
 }

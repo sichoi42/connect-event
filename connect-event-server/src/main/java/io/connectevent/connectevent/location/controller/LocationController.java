@@ -1,4 +1,4 @@
-package io.connectevent.connectevent.location;
+package io.connectevent.connectevent.location.controller;
 
 import io.connectevent.connectevent.auth.dto.MemberSessionDto;
 import io.connectevent.connectevent.auth.jwt.LoginMemberInfo;
@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,7 @@ public class LocationController {
 			@ApiResponse(responseCode = "200", description = "ok"),
 	})
 	@PreAuthorize("isAuthenticated()")
-	@PostMapping("/")
+	@GetMapping("/")
 	@ResponseStatus(HttpStatus.OK)
 	public LocationListResponseDto getLocations(
 			@LoginMemberInfo MemberSessionDto memberSessionDto,
