@@ -11,7 +11,8 @@ import lombok.ToString;
 public enum ParticipantExceptionStatus implements ExceptionStatus {
 
 	PARTICIPANT_NOT_FOUND(404, "PARTICIPANT001", "존재하지 않는 참가자입니다."),
-	PARTICIPANT_ALREADY_EXISTS(409, "PARTICIPANT002", "이미 존재하는 참가자입니다.")
+	PARTICIPANT_ALREADY_EXISTS(409, "PARTICIPANT002", "이미 존재하는 참가자입니다."),
+	PARTICIPANT_NOT_MEMBER(403, "PARTICIPANT003", "참가자가 아닙니다."),
 	;
 
 	private final int statusCode;
