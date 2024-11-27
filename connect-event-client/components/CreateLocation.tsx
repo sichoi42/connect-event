@@ -27,7 +27,14 @@ export default function CreateLocation() {
         alert("Location created successfully!");
         setLocationData({ name: "", capacity: "", address: "" });
       } else {
-        alert("Failed to create location. Please try again.");
+        try {
+          const errorData = await response.json();
+          alert(
+            errorData.message || "Failed to create event. Please try again."
+          );
+        } catch (error) {
+          alert("Failed to create event. Please try again.");
+        }
       }
     } catch (error) {
       console.error("Error creating location:", error);

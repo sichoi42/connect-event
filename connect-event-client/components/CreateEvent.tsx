@@ -91,7 +91,14 @@ export default function CreateEvent() {
           tags: [],
         });
       } else {
-        alert("Failed to create event. Please try again.");
+        try {
+          const errorData = await response.json();
+          alert(
+            errorData.message || "Failed to create event. Please try again."
+          );
+        } catch (error) {
+          alert("Failed to create event. Please try again.");
+        }
       }
     } catch (error) {
       console.error("Error creating event:", error);
@@ -175,7 +182,14 @@ export default function CreateEvent() {
             });
             setNewTag("");
           } else {
-            alert("Failed to create tag. Please try again.");
+            try {
+              const errorData = await response.json();
+              alert(
+                errorData.message || "Failed to create event. Please try again."
+              );
+            } catch (error) {
+              alert("Failed to create event. Please try again.");
+            }
           }
         } catch (error) {
           console.error("Error creating tag:", error);
@@ -209,7 +223,14 @@ export default function CreateEvent() {
         setShowNewLocationForm(false);
         alert("Location created successfully!");
       } else {
-        alert("Failed to create location. Please try again.");
+        try {
+          const errorData = await response.json();
+          alert(
+            errorData.message || "Failed to create event. Please try again."
+          );
+        } catch (error) {
+          alert("Failed to create event. Please try again.");
+        }
       }
     } catch (error) {
       console.error("Error creating location:", error);

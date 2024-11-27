@@ -91,7 +91,14 @@ export default function EventDetails({ eventId }: EventDetailsProps) {
         alert("Successfully requested to participate in the event!");
         fetchParticipants();
       } else {
-        alert("Failed to request participation. Please try again.");
+        try {
+          const errorData = await response.json();
+          alert(
+            errorData.message || "Failed to create event. Please try again."
+          );
+        } catch (error) {
+          alert("Failed to create event. Please try again.");
+        }
       }
     } catch (error) {
       console.error("Error requesting participation:", error);
@@ -117,7 +124,14 @@ export default function EventDetails({ eventId }: EventDetailsProps) {
         setNewFeedback({ comment: "", rating: 5 });
         fetchFeedbacks();
       } else {
-        alert("Failed to submit feedback. Please try again.");
+        try {
+          const errorData = await response.json();
+          alert(
+            errorData.message || "Failed to create event. Please try again."
+          );
+        } catch (error) {
+          alert("Failed to create event. Please try again.");
+        }
       }
     } catch (error) {
       console.error("Error submitting feedback:", error);
