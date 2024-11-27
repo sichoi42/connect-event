@@ -1,18 +1,18 @@
 package io.connectevent.connectevent.location.domain;
 
 import io.connectevent.connectevent.event.domain.Event;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-
 
 @Entity
 @Table(name = "Locations")
@@ -34,14 +34,14 @@ public class Location {
     @Column
     private String address;
 
-    @OneToOne(mappedBy = "location", fetch = FetchType.LAZY)
-    private Event event;
+    @OneToMany(mappedBy = "location", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Event> events;
 
-	public static Location of(String name, int capacity, String address) {
-    Location location = new Location();
-    location.name = name;
-    location.capacity = capacity;
-    location.address = address;
-    return location;
-	}
+    public static Location of(String name, int capacity, String address) {
+        Location location = new Location();
+        location.name = name;
+        location.capacity = capacity;
+        location.address = address;
+        return location;
+    }
 }

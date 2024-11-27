@@ -12,13 +12,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
-
 
 @Entity
 @Table(name = "Events")
@@ -43,8 +42,8 @@ public class Event {
     @Column(nullable = false)
     private LocalDateTime endedAt;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "location_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -53,7 +52,8 @@ public class Event {
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Participant> participants;
 
-    public static Event of(Member member, String title, String description, LocalDateTime startedAt, LocalDateTime endedAt, Location location) {
+    public static Event of(Member member, String title, String description, LocalDateTime startedAt,
+            LocalDateTime endedAt, Location location) {
         Event event = new Event();
         event.title = title;
         event.description = description;

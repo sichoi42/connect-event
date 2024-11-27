@@ -13,9 +13,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,9 +34,8 @@ public class ParticipantController {
 	@ResponseStatus(HttpStatus.OK)
 	public ParticipantListResponseDto getParticipants(
 			@LoginMemberInfo MemberSessionDto memberSessionDto,
-			@RequestParam(value = "eventId") Long eventId
-	) {
-			return participantService.getParticipants(eventId);
+			@PathVariable(value = "eventId") Long eventId) {
+		return participantService.getParticipants(eventId);
 	}
 
 	@Operation(summary = "이벤트 참여 요청", description = "이벤트 참여 요청을 합니다.")
@@ -45,9 +44,8 @@ public class ParticipantController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void requestEvent(
 			@LoginMemberInfo MemberSessionDto memberSessionDto,
-			@RequestParam(value = "eventId") Long eventId
-	) {
-			participantService.requestEvent(eventId, memberSessionDto.getMemberId());
+			@PathVariable(value = "eventId") Long eventId) {
+		participantService.requestEvent(eventId, memberSessionDto.getMemberId());
 	}
 
 	@Operation(summary = "이벤트 참여 수락", description = "이벤트 참여 요청을 수락합니다. 이벤트 마스터만")
@@ -56,10 +54,9 @@ public class ParticipantController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void acceptEvent(
 			@LoginMemberInfo MemberSessionDto memberSessionDto,
-			@RequestParam(value = "eventId") Long eventId,
-			@RequestParam(value = "participantId") Long participantId
-	) {
-			participantService.acceptEvent(memberSessionDto.getMemberId(), eventId, participantId);
+			@PathVariable(value = "eventId") Long eventId,
+			@PathVariable(value = "participantId") Long participantId) {
+		participantService.acceptEvent(memberSessionDto.getMemberId(), eventId, participantId);
 	}
 
 	@Operation(summary = "이벤트 탈퇴", description = "이벤트 참여를 취소합니다. 방장이 아닌 경우만 가능")
@@ -68,8 +65,7 @@ public class ParticipantController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void cancelEvent(
 			@LoginMemberInfo MemberSessionDto memberSessionDto,
-			@RequestParam(value = "eventId") Long eventId
-	) {
-			participantService.cancelEvent(memberSessionDto.getMemberId(), eventId);
+			@PathVariable(value = "eventId") Long eventId) {
+		participantService.cancelEvent(memberSessionDto.getMemberId(), eventId);
 	}
 }

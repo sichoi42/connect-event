@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +37,7 @@ public class FeedbackController {
 	@ResponseStatus(HttpStatus.OK)
 	public FeedbackListResponseDto getFeedbacks(
 			@LoginMemberInfo MemberSessionDto memberSessionDto,
-			@RequestParam(value = "eventId") Long eventId,
+			@PathVariable(value = "eventId") Long eventId,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int size
 	) {
@@ -49,7 +50,7 @@ public class FeedbackController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createFeedback(
 			@LoginMemberInfo MemberSessionDto memberSessionDto,
-			@RequestParam(value = "eventId") Long eventId,
+			@PathVariable(value = "eventId") Long eventId,
 			@RequestBody FeedbackCreateRequestDto requestDto
 	) {
 		feedbackService.createFeedback(eventId, memberSessionDto.getMemberId(), requestDto);
@@ -61,8 +62,8 @@ public class FeedbackController {
 	@ResponseStatus(HttpStatus.OK)
 	public void updateFeedback(
 			@LoginMemberInfo MemberSessionDto memberSessionDto,
-			@RequestParam(value = "eventId") Long eventId,
-			@RequestParam(value = "feedbackId") Long feedbackId,
+			@PathVariable(value = "eventId") Long eventId,
+			@PathVariable(value = "feedbackId") Long feedbackId,
 			@RequestBody FeedbackUpdateRequestDto requestDto
 	) {
 		feedbackService.updateFeedback(eventId, memberSessionDto.getMemberId(), feedbackId, requestDto);
@@ -74,8 +75,8 @@ public class FeedbackController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteFeedback(
 			@LoginMemberInfo MemberSessionDto memberSessionDto,
-			@RequestParam(value = "eventId") Long eventId,
-			@RequestParam(value = "feedbackId") Long feedbackId
+			@PathVariable(value = "eventId") Long eventId,
+			@PathVariable(value = "feedbackId") Long feedbackId
 	) {
 		feedbackService.deleteFeedback(eventId, memberSessionDto.getMemberId(), feedbackId);
 	}
