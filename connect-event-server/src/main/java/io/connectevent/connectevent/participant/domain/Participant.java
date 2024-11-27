@@ -34,7 +34,7 @@ public class Participant {
     @Enumerated(EnumType.STRING)
     private ParticipantRole role;
 
-    @Column(nullable = false)
+    @Column
     private LocalDateTime registeredAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
