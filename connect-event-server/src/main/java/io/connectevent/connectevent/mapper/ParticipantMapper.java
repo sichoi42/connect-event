@@ -13,5 +13,9 @@ public interface ParticipantMapper {
 	@Mapping(source = "participant.id", target = "participantId")
 	ParticipantDto toParticipantDto(Participant participant, String name, String email);
 
-	ParticipantListResponseDto toParticipantListResponseDto(List<ParticipantDto> participantDtos);
+	default ParticipantListResponseDto toParticipantListResponseDto(List<ParticipantDto> participantDtos) {
+		return ParticipantListResponseDto.builder()
+				.results(participantDtos)
+				.build();
+	}
 }

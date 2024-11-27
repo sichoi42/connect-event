@@ -17,5 +17,4 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
 
 	@Query("SELECT p FROM Participant p JOIN FETCH p.member WHERE p.event.id = :eventId")
 	List<Participant> findByEventIdWithMember(Long eventId);
-
 }

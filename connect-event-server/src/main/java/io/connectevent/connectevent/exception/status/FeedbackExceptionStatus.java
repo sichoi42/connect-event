@@ -11,8 +11,8 @@ import lombok.ToString;
 public enum FeedbackExceptionStatus implements ExceptionStatus {
 
 	FEEDBACK_NOT_FOUND(404, "FEEDBACK001", "존재하지 않는 피드백입니다."),
-	FEEDBACK_ALREADY_EXISTS(409, "FEEDBACK002", "이미 존재하는 피드백입니다.")
-	;
+	FEEDBACK_ALREADY_EXISTS(409, "FEEDBACK002", "이미 존재하는 피드백입니다."),
+	FEEDBACK_NOT_OWNER(403, "FEEDBACK003", "피드백 작성자가 아닙니다.");
 
 	private final int statusCode;
 	private final String code;
