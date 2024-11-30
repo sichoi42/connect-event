@@ -327,7 +327,7 @@ export default function CreateEvent() {
         {showNewLocationForm && (
           <div className="border p-4 rounded mt-2">
             <h4 className="text-lg font-semibold mb-2">Create New Location</h4>
-            <form onSubmit={handleCreateLocation} className="space-y-2">
+            <div className="space-y-2">
               <input
                 type="text"
                 value={newLocation.name}
@@ -367,13 +367,13 @@ export default function CreateEvent() {
                   Cancel
                 </button>
                 <button
-                  type="submit"
+                  onClick={handleCreateLocation}
                   className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                 >
                   Create Location
                 </button>
               </div>
-            </form>
+            </div>
           </div>
         )}
         <div>
