@@ -163,14 +163,15 @@ export default function CreateEvent() {
       } else if (newTag.trim() !== "") {
         try {
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/events/tags/new`,
+            `${
+              process.env.NEXT_PUBLIC_API_URL
+            }/api/v1/events/tags/new?tagName=${newTag.trim()}`,
             {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
               },
-              body: JSON.stringify({ tagName: newTag.trim() }),
             }
           );
           if (response.ok) {
